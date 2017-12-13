@@ -29,5 +29,5 @@ function closeModal() {
 
 //footerLink
 $('.footerLink').on('click',function(){
-  window.open("https://sanheng03.github.io");
+  window.open("https://mj-webdev.com");
 })
