@@ -1,0 +1,184 @@
+*
+{
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.loading {
+  position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("../assets/img/loading.gif") center no-repeat #222;
+}
+.gameHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto 10px;
+  background-color: #6e693c;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 1px 1px 2px #777;
+}
+.gameHeader>img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+h2
+{
+  font-family: 'Germania One', cursive;
+  font-size: 35px;
+  margin-top: 0;
+  color: white;
+  text-shadow: 2px 2px 3px gray;
+}
+p {
+  color: white;
+}
+#instruction
+{
+  font-size: 18px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: white;
+  width: 700px;
+  margin: 5px auto;
+  padding: 5px 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+}
+#instruction>p
+{
+  text-align: justify;
+}
+#main
+{
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+#game
+{
+  justify-content: center;
+  width: 400px;
+}
+#light
+{
+  display: flex;
+  margin: 10px auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: 'Ubuntu', sans-serif;
+  color: white;
+}
+#light>img
+{
+  height: 20px;
+  margin: 0px 5px;
+}
+#input
+{
+  margin: 10px auto;
+  width: 120px;
+  height: 40px;
+  border: 1px solid black;
+  padding-top: 5px;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #d9d9d9;
+}
+#buttonarea
+{
+  margin: 10px auto 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 280px;
+  justify-content: center;
+  align-content: center;
+}
+.button
+{
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: #d9d9d9;
+  font-size: 30px;
+  padding: 15px;
+  margin: 3px;
+  cursor: pointer;
+  font-family: 'Germania One', cursive;
+}
+#history
+{
+  background-color: #d9d9d9;
+  margin-left: 20px;
+  border: 5px double black;
+  height: 230px;
+  width: 300px;
+}
+h3
+{
+  border-bottom: 1px solid black;
+  width: 75%;
+  margin: 5px auto;
+}
+#match
+{
+  font-family: 'Germania One', cursive;
+  font-size: 20px;
+  margin: 5px;
+  height: 180px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#match>img:nth-child(4n+1)
+{
+  margin-left: 70px;
+}
+#match>img
+{
+  height: 20px;
+  margin: 0px 5px;
+}
+#start
+{
+  font-size: 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  padding: 15px;
+  margin-bottom: 30px;
+  font-family: 'Modak', cursive;
+}
+
+@media screen and (max-width: 800px)
+{
+  #main
+  {
+    display: inline-block;
+    margin: auto;
+    width: 100%;
+  }
+  #game
+  {
+    width: 100%;
+  }
+  #history
+  {
+    margin: 5px auto 30px auto;
+  }
+  #start
+  {
+    margin: 0 auto 20px auto;
+  }
+  #instruction
+  {
+    width: 90%;
+  }
+  p {
+    margin: 0 10px 0 10px;
+  }
+}

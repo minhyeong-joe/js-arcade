@@ -1,0 +1,93 @@
+*
+{
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.loading {
+  position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("../assets/img/loading.gif") center no-repeat #222;
+}
+.gameHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto 10px;
+  background-color: #6e693c;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 1px 1px 2px #777;
+}
+.gameHeader>img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+h2
+{
+  font-family: "Germania One", sans-serif;
+  font-weight: bolder;
+  font-size: 35px;
+  color: white;
+}
+p
+{
+  font-size: 16px;
+  color: white;
+}
+#gamearea
+{
+  margin-top: 40px;
+  background-color: black;
+  width: 90%;
+}
+.control {
+  display: none;
+  position: relative;
+  width: 75%;
+  margin: auto;
+}
+.control>img {
+  width: 100%;
+}
+.arrow {
+  position: absolute;
+  width: 26%;
+  height: 26%;
+}
+.up {
+  top: 11%;
+  left: 37%;
+}
+.left {
+  top: 37%;
+  left: 11%;
+}
+.right {
+  top: 37%;
+  right: 10%;
+}
+.down {
+  bottom: 12%;
+  left: 37%;
+}
+@media screen and (max-width: 800px)
+{
+  .gameHeader>h2 {
+    font-size: 25px;
+  }
+  p {
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 769px) {
+  .control {
+    display: block;
+  }
+}

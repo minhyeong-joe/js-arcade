@@ -1,0 +1,158 @@
+*
+{
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.loading {
+  position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("../assets/img/loading.gif") center no-repeat #222;
+}
+.gameHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto 10px;
+  background-color: #6e693c;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 1px 1px 2px #777;
+}
+.gameHeader>img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+h2
+{
+  font-family: "Germania One", sans-serif;
+  font-weight: bolder;
+  font-size: 35px;
+  color: white;
+}
+p
+{
+  font-size: 16px;
+  color: white;
+}
+#gamearea
+{
+  margin-top: 40px;
+  background-color: black;
+  width: 90%;
+}
+/*#control
+{
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+  background-image: url("img/arrows.png");
+  width: 212px;
+  height: 135.5px;
+  background-color: gray;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 5px;
+  border: 5px solid white;
+}
+#left, #right
+{
+  margin-top: 65px;
+  width: 80px;
+  height: 65px;
+  cursor: pointer;
+}
+#up, #down
+{
+  width: 70px;
+  height: 65px;
+  cursor: pointer;
+}*/
+#system
+{
+  width: 220px;
+  height: 100px;
+  display: flex;
+  margin: auto;
+  background-color: rgba(100, 100, 100, 0.3);
+  justify-content: center;
+  align-items: center;
+}
+#back, #bgmbutton
+{
+  cursor: pointer;
+  margin: 20px;
+}
+/*@media screen and (max-width: 800px)
+{
+  #control
+  {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    background-image: url("img/arrows.png");
+    width: 424px;
+    height: 271px;
+    background-color: gray;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 5px;
+    border: 5px solid white;
+  }
+  #left, #right
+  {
+    margin-top: 130px;
+    width: 120px;
+    height: 130px;
+    cursor: none;
+  }
+  #up, #down
+  {
+    width: 140px;
+    height: 130px;
+    cursor: none;
+  }
+}*/
+#bgmCover
+{
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  background-color: rgba(100, 100, 100, 0.5);
+  z-index: 1;
+  position: fixed;
+}
+#bgmMsg
+{
+  background-color: black;
+  border-radius: 10px;
+  width: 450px;
+  height: 150px;
+  margin: 300px auto;
+  color: white;
+}
+#bgmMsg>*
+{
+  font-size: 30px;
+  font-weight: bold;
+}
+#bgmMsg>p
+{
+  padding-top: 10px;
+}
+#bgmMsg>span
+{
+  margin: 5px 5px;
+  padding: 5px 30px;
+  background-color: gray;
+  cursor: pointer;
+  border-radius: 10px;
+  outline: none;
+}

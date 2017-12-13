@@ -1,0 +1,177 @@
+*
+{
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.loading {
+  position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("../assets/img/loading.gif") center no-repeat #222;
+}
+.gameHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto 10px;
+  background-color: #6e693c;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 1px 1px 2px #777;
+}
+.gameHeader>img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+h2
+{
+  font-family: 'Germania One', cursive;
+  font-size: 35px;
+  margin-top: 0;
+  color: white;
+  text-shadow: 2px 2px 3px gray;
+}
+#target, #score, #attempt, #time
+{
+  height: 30px;
+  width: 80px;
+  border: 1px solid black;
+  background-color: white;
+  display: inline-block;
+  padding-top: 5px;
+  margin: auto;
+  font-family: 'Archivo Black', sans-serif;
+}
+#gameboard
+{
+  margin: auto;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 500px;
+  width: 500px;
+  border: 5px solid #60300e;
+  background-color: #DEB887;
+  position: relative;
+}
+#gameover
+{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0;
+  z-index: -1;
+  color: #B8860B;
+  font-weight: bolder;
+  font-size: 50px;
+  text-shadow: 2px 2px 2px black;
+  padding-top: 200px;
+  font-family: 'Righteous', cursive;
+}
+#scoreboard
+{
+  width: 350px;
+  margin: 0 auto;
+}
+#start, #hint
+{
+  outline: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  font-size: 24px;
+  margin: 20px 10px;
+  border-radius: 10px;
+  font-family: 'Passion One', cursive;
+  font-weight: bold;
+}
+.card
+{
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  border: 1px solid black;
+  height: 120px;
+  width: 120px;
+  background-color: #8B4513;
+  margin: 1px;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#scoreboard>div
+{
+  display: flex;
+}
+.label
+{
+  color: white;
+  margin: 10px 10px;
+  width: 150px;
+  font-family: 'Archivo Black', sans-serif;
+}
+
+#instruction
+{
+  margin: 10px auto;
+  width: 90%;
+  border: 8px double white;
+  font-weight: bold;
+}
+ul
+{
+  margin-right: 15px;
+  color: white;
+}
+li
+{
+  text-align: justify;
+}
+
+@media screen and (max-width: 800px)
+{
+  #main
+  {
+    display: block;
+    width: 100%;
+  }
+  ul
+  {
+    width: 100%;
+  }
+  #gameboard, #scoreboard
+  {
+    margin: 10px auto;
+  }
+  #scoreboard {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 655px) {
+  #gameboard {
+    height: 300px;
+    width: 300px;
+  }
+  .card {
+    height: 70px;
+    width: 70px;
+  }
+}
+@media screen and (max-width: 367px) {
+  #gameboard {
+    height: 250px;
+    width: 250px;
+  }
+  .card {
+    height: 58px;
+    width: 58px;
+  }
+}

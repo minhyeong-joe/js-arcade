@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton|Germania+One|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Hungry Snake</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+      <p>Eat the <font color="green">FROGS</font> to grow in size and earn points.</p>
+      <p><font color="red">RED POISON</font> will cost you one life point.</p>
+      <p>Press spacebar or tap to pause the game</p>
+      <canvas id="gamearea" width="450px" height="450px"></canvas>
+      <div class="control">
+        <img src="assets/img/arrows.png" alt="">
+        <div class="up arrow"></div>
+        <div class="left arrow"></div>
+        <div class="right arrow"></div>
+        <div class="down arrow"></div>
+      </div>
+    </div>
+
+      <audio id="bgm" src="assets/bgm/bgm.mp3" preload="auto" loop="true"></audio>
+      <audio src="assets/bgm/frog.mp3" id="eat" preload="auto"></audio>
+      <audio src="assets/bgm/dead.mp3" id="dead" preload="auto"></audio>
+      <audio src="assets/bgm/collide.mp3" id="collide" preload="auto"></audio>
+      <audio src="assets/bgm/poison.mp3" id="poison" preload="auto"></audio>
+      <script src="script.js"></script>
+
+  </body>
+</html>

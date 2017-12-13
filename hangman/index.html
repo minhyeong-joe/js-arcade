@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton|Germania+One|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Hangman</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+        <div id="attempts"><pre> </pre></div>
+        <img id="hangmanpic" src="assets/img/try0.png">
+          <div class="start">START</div>
+          <div id="answer"></div>
+            <div id="letterbank">
+              <button disabled class="letters" id='a'>A</button>
+              <button disabled class="letters" id='b'>B</button>
+              <button disabled class="letters" id='c'>C</button>
+              <button disabled class="letters" id='d'>D</button>
+              <button disabled class="letters" id='e'>E</button>
+              <button disabled class="letters" id='f'>F</button>
+              <button disabled class="letters" id='g'>G</button>
+              <button disabled class="letters" id='h'>H</button>
+              <button disabled class="letters" id='i'>I</button>
+              <button disabled class="letters" id='j'>J</button>
+              <button disabled class="letters" id='k'>K</button>
+              <button disabled class="letters" id='l'>L</button>
+              <button disabled class="letters" id='m'>M</button>
+              <button disabled class="letters" id='n'>N</button>
+              <button disabled class="letters" id='o'>O</button>
+              <button disabled class="letters" id='p'>P</button>
+              <button disabled class="letters" id='q'>Q</button>
+              <button disabled class="letters" id='r'>R</button>
+              <button disabled class="letters" id='s'>S</button>
+              <button disabled class="letters" id='t'>T</button>
+              <button disabled class="letters" id='u'>U</button>
+              <button disabled class="letters" id='v'>V</button>
+              <button disabled class="letters" id='w'>W</button>
+              <button disabled class="letters" id='x'>X</button>
+              <button disabled class="letters" id='y'>Y</button>
+              <button disabled class="letters" id='z'>Z</button>
+            </div>
+            <button id="retry">RETRY</button>
+          </div>
+    <audio src="assets/bgm/bgm.mp3" id="bgm" preload="auto" loop = "true"></audio>
+    <audio src="assets/bgm/beep.mp3" id="beep" preload="auto"></audio>
+    <audio src="assets/bgm/wrongbeep.mp3" id="wrongbeep" preload="auto"></audio>
+    <audio src="assets/bgm/correctbeep.mp3" id="correctbeep" preload="auto"></audio>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

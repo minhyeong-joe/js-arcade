@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JS Arcade</title>
+  <link rel="icon" href="assets/img/tabIcon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron|Oswald|Press+Start+2P" rel="stylesheet">
+  <script src="loading.js"></script>
+</head>
+
+<body>
+  <div class="loading"></div>
+  <div class="header">
+    <p class="title">JS Arcade</p>
+  </div>
+  <div class="main">
+    <div class="gameList">
+
+      <div class="wrapper" id="hangman">
+        <div class="titlebar">
+          <p class="gameTitle">HANGMAN</p>
+          <div class="win98">
+            <div class="minimize"><p>_</p></div>
+            <div class="fullscreen"><div class="square"></div></div>
+            <div class="close">X</div>
+          </div>
+        </div>
+        <div class="thumbnail">
+          <div class="overlay"></div>
+          <img src="assets/img/hangman_overlay.PNG" alt="" class="overlay img">
+          <img src="assets/img/hangman.PNG" alt="">
+        </div>
+      </div>
+
+      <div class="wrapper" id="snakegame">
+        <div class="titlebar">
+          <p class="gameTitle">HUNGRY SNAKE</p>
+          <div class="win98">
+            <div class="minimize"><p>_</p></div>
+            <div class="fullscreen"><div class="square"></div></div>
+            <div class="close">X</div>
+          </div>
+        </div>
+        <div class="thumbnail">
+          <div class="overlay"></div>
+          <img src="assets/img/snakegame_overlay.PNG" alt="" class="overlay img">
+          <img src="assets/img/snakegame.PNG" alt="">
+        </div>
+      </div>
+
+      <div class="wrapper" id="memorygame">
+        <div class="titlebar">
+          <p class="gameTitle">MEMORY GAME</p>
+          <div class="win98">
+            <div class="minimize"><p>_</p></div>
+            <div class="fullscreen"><div class="square"></div></div>
+            <div class="close">X</div>
+          </div>
+        </div>
+        <div class="thumbnail">
+          <div class="overlay"></div>
+          <img src="assets/img/memorygame_overlay.PNG" alt="" class="overlay img">
+          <img src="assets/img/memorygame.jpg" alt="">
+        </div>
+      </div>
+
+      <div class="wrapper" id="mastermind">
+        <div class="titlebar">
+          <p class="gameTitle">MASTERMIND</p>
+          <div class="win98">
+            <div class="minimize"><p>_</p></div>
+            <div class="fullscreen"><div class="square"></div></div>
+            <div class="close">X</div>
+          </div>
+        </div>
+        <div class="thumbnail">
+          <div class="overlay"></div>
+          <img src="assets/img/mastermind_modal.PNG" alt="" class="overlay img">
+          <img src="assets/img/mastermind.jpg" alt="">
+        </div>
+      </div>
+
+      <div class="wrapper" id="clickclick">
+        <div class="titlebar">
+          <p class="gameTitle">CLICK CLICK</p>
+          <div class="win98">
+            <div class="minimize"><p>_</p></div>
+            <div class="fullscreen"><div class="square"></div></div>
+            <div class="close">X</div>
+          </div>
+        </div>
+        <div class="thumbnail">
+          <div class="overlay"></div>
+          <img src="assets/img/clickclick_overlay.PNG" alt="" class="overlay img">
+          <img src="assets/img/clickclick.PNG" alt="">
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <!-- modals go here -->
+
+  <div class="modal" id="hangmanModal">
+    <div class="modalContent">
+      <p class="modalTitle">Hangman<span class="modalClose">&times;</span></p>
+      <div class="modalFlex">
+        <img src="assets/img/hangman.PNG" alt="">
+        <div class="modalDescription">
+          <p>Description: A classic Hangman game! Guess the randomly generated daily word within limited attempts and try not to hang the poor man.</p>
+        </div>
+      </div>
+      <a href="https://sanheng03.github.io/jsArcade/hangman">Launch Game</a>
+    </div>
+  </div>
+
+  <div class="modal" id="snakegameModal">
+    <div class="modalContent">
+      <p class="modalTitle">Hungry Snake<span class="modalClose">&times;</span></p>
+      <div class="modalFlex">
+        <img src="assets/img/snakegame.PNG" alt="">
+        <div class="modalDescription">
+          <h3>Single Player</h3>
+          <p>Description: Eat frogs and grow bigger! Avoid the poison and do not bump into the wall or any part of snake's body.</p>
+          <div style="height: 10px"></div>
+          <h3>Two Players</h3>
+          <p>Description: Compete with your friends. Make them bump into your snake to eliminate their snakes.</p>
+        </div>
+      </div>
+      <a href="https://sanheng03.github.io/jsArcade/hungrysnake">Single Player</a>
+      <a href="https://sanheng03.github.io/jsArcade/hungrysnakes">Two Players</a>
+    </div>
+  </div>
+
+  <div class="modal" id="memorygameModal">
+    <div class="modalContent">
+      <p class="modalTitle">Memory Game<span class="modalClose">&times;</span></p>
+      <div class="modalFlex">
+        <img src="assets/img/memorygame.PNG" alt="" style="filter: grayscale(25%)">
+
+        <div class="modalDescription">
+          <h3>Single Player</h3>
+          <p>Description: Memorize as many numbers and operators. Flip three cards so that the equation derives the given target value.</p>
+          <div style="height: 10px"></div>
+          <h3>Two Players</h3>
+          <p>Description: Hit the buzzer and "out-memorize" your opponents !</p>
+        </div>
+      </div>
+      <a href="https://sanheng03.github.io/jsArcade/memorygame">Single Player</a>
+      <a href="https://sanheng03.github.io/jsArcade/memorygame2">Two Players</a>
+    </div>
+  </div>
+
+  <div class="modal" id="mastermindModal">
+    <div class="modalContent">
+      <p class="modalTitle">Mastermind<span class="modalClose">&times;</span></p>
+      <div class="modalFlex">
+        <img src="assets/img/mastermind_modal.PNG" alt="">
+
+        <div class="modalDescription">
+          <p>Description: Guess a randomly generated four-digit PIN. Use the hint provided after each try to find out the PIN.</p>
+        </div>
+
+      </div>
+      <a href="https://sanheng03.github.io/jsArcade/mastermind">Launch Game</a>
+    </div>
+  </div>
+
+  <div class="modal" id="clickclickModal">
+    <div class="modalContent">
+      <p class="modalTitle">Click! Click!<span class="modalClose">&times;</span></p>
+      <div class="modalFlex">
+        <img src="assets/img/clickclick.PNG" alt="">
+
+        <div class="modalDescription">
+          <p>Description: Click or tap the buttons as fast as you can.</p>
+        </div>
+
+      </div>
+      <a href="https://sanheng03.github.io/jsArcade/clickclick">Launch Game</a>
+    </div>
+  </div>
+
+  <!-- end of modals -->
+
+  <div class="footer">
+    <p class="footerText">© 2017 All Rights Reserved</p>
+    <br/>
+    <p class="footerLink">Minhyeong Billy Joe</p>
+  </div>
+
+  <script src="modal.js"></script>
+</body>
+
+</html>

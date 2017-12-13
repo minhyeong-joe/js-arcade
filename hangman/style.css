@@ -1,0 +1,142 @@
+*
+{
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.loading {
+  position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+  background: url("../assets/img/loading.gif") center no-repeat #222;
+}
+.gameHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto 10px;
+  background-color: #6e693c;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 1px 1px 2px #777;
+}
+.gameHeader>img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+h2
+{
+  font-family: 'Germania One', cursive;
+  font-size: 35px;
+  margin-top: 0;
+  color: white;
+  text-shadow: 2px 2px 3px gray;
+}
+
+#attempts
+{
+  font-size: 1.5rem;
+  color: white;
+  font-family: 'Josefin Sans', sans-serif;
+}
+#game
+{
+  flex-direction: row;
+}
+#hangmanpic
+{
+  margin-top: 10px;
+  height: auto;
+  width: 90%;
+  filter: invert(100%);
+}
+#letterbank
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 520px;
+  margin: 20px auto;
+}
+#answer
+{
+  display: none;
+  font-family: 'Anton', sans-serif;
+  margin-top: 15px;
+  font-size: 2rem;
+  color: white;
+}
+.start {
+  background-color: #ddd;
+  width: 30%;
+  min-width: 100px;
+  padding: 5px;
+  margin:  10px auto;
+  border-radius: 10px;
+  font-family: 'Anton', sans-serif;
+  box-shadow: 2px 2px 3px #888;
+  cursor: pointer;
+  font-size: 20px;
+}
+.start:hover{
+  background-color: #fc6;
+}
+#letterbank>button
+{
+  font-family: 'Anton', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 2px;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  pointer-events: none;
+}
+
+button:hover
+{
+  background-color: #fc6;
+}
+#retry
+{
+  margin: 10px auto;
+  font-size: 24px;
+  padding: 10px;
+  display: none;
+  border-radius: 10px;
+  outline: none;
+  font-family: 'Germania One', cursive;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px)
+{
+  #letterbank
+  {
+    width: 90%;
+  }
+  #letterbank>button
+  {
+    padding: 0;
+    width: 10%;
+    font-size: 16px;
+  }
+  .gameHeader>h2 {
+    font-size: 25px;
+  }
+  #attempts {
+    font-size: 15px;
+  }
+  #answer {
+    font-size: 22px;
+  }
+  #retry {
+    font-size: 18px;
+  }
+}

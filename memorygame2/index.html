@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Passion+One|Righteous|Anton|Germania+One|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Memory Game: Two Players</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+
+        <div id="target">0</div>
+        <div id="game">
+          <div id="player1stat">
+            <div id="player1timer"></div>
+            <img id="player1icon" src="assets/img/p1icon.png"></img>
+            <div id="player1score"> Score : 0</div>
+            <img id="player1buzzer" class="buzzer" src="assets/img/buzzeroff.png"></img>
+            <p>Press <strong>'z'</strong> for buzzer</p>
+          </div>
+          <div id="gameboard">
+            <div id="gameover">Player 1 Won!</div>
+            <div id="0" class="card">A</div>
+            <div id="1" class="card">L</div>
+            <div id="2" class="card">I</div>
+            <div id="3" class="card">E</div>
+            <div id="4" class="card">Y</div>
+            <div id="5" class="card">O</div>
+            <div id="6" class="card">U</div>
+            <div id="7" class="card">M</div>
+            <div id="8" class="card">S</div>
+            <div id="9" class="card">T</div>
+            <div id="10" class="card">N</div>
+            <div id="11" class="card">R</div>
+            <div id="12" class="card">H</div>
+            <div id="13" class="card">D</div>
+            <div id="14" class="card">G</div>
+            <div id="15" class="card">K</div>
+          </div>
+          <div id="player2stat">
+            <div id="player2timer"></div>
+            <img id="player2icon" src="assets/img/p2icon.png"></img>
+            <div id="player2score"> Score : 0</div>
+            <img id="player2buzzer" class="buzzer" src="assets/img/buzzeroff.png"></img>
+            <p>Press <strong>'/'</strong> for buzzer</p>
+          </div>
+        </div>
+        <button id="start">START</button>
+        <div id="instruction">
+          <ul>
+            <li id="startInstruction"></li>
+            <li>Press 'z' for player 1's buzzer, and '/' for player 2's buzzer, or tap on the buzzer</li>
+            <li>Open 3 cards (a number, an operator, and another number) to get the target number.</li>
+            <li id="limitInstruction"></li>
+            <li>If failed to get the target number or time limit is up, your opponent will get the turn with no time limit. Then, each player will take turn until one player gets the answer.</li>
+            <li>Each target number guessed without time limit is worth 1 point.</li>
+            <li id="goalInstruction"></li>
+          </ul>
+        </div>
+    </div>
+
+    <audio id = "beep" src="assets/bgm/beep.mp3" preload="auto"></audio>
+    <audio id = "wrongbeep" src="assets/bgm/wrongbeep.mp3" preload="auto"></audio>
+    <audio id = "correctbeep" src="assets/bgm/correctbeep.mp3" preload="auto"></audio>
+    <audio src="assets/bgm/cardclick.mp3" id="cardclick" preload="auto"></audio>
+    <audio src="assets/bgm/timerbeep.mp3" id="timerbeep" preload="auto"></audio>
+    <audio id = "bgm" src="assets/bgm/bgm.mp3" preload="auto" loop = "true"></audio>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

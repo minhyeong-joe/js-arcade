@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton|Germania+One|Josefin+Sans|Modak|Roboto+Condensed|Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Mastermind</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+
+      <p>Guess the 4-digit PIN</p>
+      <p>The player can enter any combinations to see how close the input is to the actual PIN.</p>
+      <p>Use the hints provided each attempt to guess the correct 4-digit PIN with the least attempts.</p>
+      <div id="instruction">
+        <p><img src="assets/img/wrong.png" height="20px" alt=""> indicates the amount of wrong numbers that are not in the PIN</p>
+        <p><img src="assets/img/Warning.png" height="20px" alt=""> indicates the amount of numbers that are in the PIN but not in the correct location.</p>
+        <p><img src="assets/img/correct.png" height="20px" alt=""> indicates the amount of correct numbers in correct locations.</p>
+      </div>
+      <div id="main">
+        <div id="game">
+          <div id="light"></div>
+          <div id="input"></div>
+          <div id="buttonarea">
+            <div id="1" class="button">1</div>
+            <div id="2" class="button">2</div>
+            <div id="3" class="button">3</div>
+            <div id="4" class="button">4</div>
+            <div id="5" class="button">5</div>
+            <div id="6" class="button">6</div>
+            <div id="7" class="button">7</div>
+            <div id="8" class="button">8</div>
+            <div id="9" class="button">9</div>
+            <div id="0" class="button">0</div>
+          </div>
+        </div>
+        <div id="history">
+          <h3>Your Guesses</h3>
+          <div id="match"></div>
+        </div>
+      </div>
+      <button id="start">START</button>
+
+    <audio src="assets/bgm/bgm.mp3" id="bgm" preload="auto" loop="true"></audio>
+    <audio src="assets/bgm/beep.mp3" id="beep" preload="auto"></audio>
+    <audio src="assets/bgm/wrongbeep.mp3" id="wrong" preload="auto"></audio>
+    <audio src="assets/bgm/correctbeep.mp3" id="correct" preload="auto"></audio>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

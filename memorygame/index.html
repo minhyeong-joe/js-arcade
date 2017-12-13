@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Passion+One|Righteous|Anton|Germania+One|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Memory Game</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+
+      <div id="gameboard">
+        <div id="gameover"></div>
+        <div id="0" class="card"></div>
+        <div id="1" class="card"></div>
+        <div id="2" class="card"></div>
+        <div id="3" class="card"></div>
+        <div id="4" class="card"></div>
+        <div id="5" class="card"></div>
+        <div id="6" class="card"></div>
+        <div id="7" class="card"></div>
+        <div id="8" class="card"></div>
+        <div id="9" class="card"></div>
+        <div id="10" class="card"></div>
+        <div id="11" class="card"></div>
+        <div id="12" class="card"></div>
+        <div id="13" class="card"></div>
+        <div id="14" class="card"></div>
+        <div id="15" class="card"></div>
+      </div>
+      <div id="userinterface">
+        <div id="scoreboard">
+          <div>
+            <div class="label">Target Number:</div> <div id="target"></div>
+          </div>
+          <div>
+            <div class="label">Score:</div> <div id="score"></div>
+          </div>
+          <div>
+            <div class="label">Attempt:</div> <div id="attempt"></div>
+          </div>
+          <div>
+            <div class="label">Time Elapsed:</div> <div id="time"></div>
+          </div>
+        </div>
+          <button id="start">START</button>
+          <button id="hint">HINT</button>
+        </div>
+        <div id="instruction">
+          <ul>
+            <li>The card will be flipped open for 10 seconds so you can memorize numbers and operators.</li>
+            <li>Open 3 cards (a number, an operator, and another number) to get the target number.</li>
+            <li>If failed to get the target number, you will lose an attempt, but the target number will stay the same until you get it.</li>
+            <li>Memorize as many cards, and guess as many target numbers in 10 attempts.</li>
+            <li><font color="red">HINT</font> will show all cards once again. You can only use hint once, so make it count.</li>
+          </ul>
+        </div>
+    </div>
+
+    <audio id = "bgm" src="assets/bgm/bgm.mp3" preload="auto" loop = "true"></audio>
+    <audio src="assets/bgm/correctbeep.mp3" id="correctbeep" preload="auto"></audio>
+    <audio src="assets/bgm/wrongbeep.mp3" id="wrongbeep" preload="auto"></audio>
+    <audio src="assets/bgm/cardclick.mp3" id="cardclick" preload="auto"></audio>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

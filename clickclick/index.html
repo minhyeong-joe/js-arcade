@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Anton|Germania+One|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Click! Click!</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+
+      <div id="scoreboard">
+        <p>Score :</p>
+        <div id="score"></div>
+        <p>Time :</p>
+        <div id="time"></div>
+      </div>
+      <div id="gameboard">
+        <img id="0" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="1" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="2" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="3" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="4" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="5" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="6" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="7" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="8" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="9" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="10" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="11" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="12" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="13" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="14" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="15" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="16" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="17" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="18" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="19" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="20" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="21" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="22" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="23" class="buzzer" src=assets/img/button_off.png height= "80px">
+        <img id="24" class="buzzer" src=assets/img/button_off.png height= "80px">
+      </div>
+      <button id="start">START</button>
+
+    </div>
+
+    <audio src="assets/bgm/beep.mp3" id = "beep" preload="auto"></audio>
+    <audio src="assets/bgm/endgamebeep.mp3" id = "endbeep" preload="auto"></audio>
+    <audio src="assets/bgm/click.mp3" id = "clickbeep" preload="auto"></audio>
+    <audio src="assets/bgm/timerbeep.mp3" id = "timerbeep" preload="auto"></audio>
+    <audio src="assets/bgm/bgm.mp3" id="bgm" preload="auto" loop="true"></audio>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
