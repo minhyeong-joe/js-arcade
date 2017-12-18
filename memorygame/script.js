@@ -10,7 +10,7 @@ for (var i = 0; i < 16; i++)
   document.getElementById(i).style.pointerEvents = 'none';
 }
 //initialize card pool
-var pool = [1,2,3,4,5,6,7,8,9,10,11,12,'+','-','x','÷'];
+var pool = [1,2,3,4,5,6,7,8,9,10,11,12,'+','-','&times;','÷'];
 var poolback = ['A', 'L', 'I', 'E', 'Y', 'O', 'U', 'M', 'S', 'T', 'N', 'R', 'H', 'D', 'G', 'K'];
 //shuffle the order
 function shufflearray(array)

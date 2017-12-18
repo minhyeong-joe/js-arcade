@@ -22,7 +22,7 @@ for (var i = 0; i < 16; i++)
 }
 
 //initialize card pool (front and back)
-var pool = [1,2,3,4,5,6,7,8,9,10,11,12,'+','-','x','÷'];
+var pool = [1,2,3,4,5,6,7,8,9,10,11,12,'+','-','&times;','÷'];
 var poolback = ['A', 'L', 'I', 'E', 'Y', 'O', 'U', 'M', 'S', 'T', 'N', 'R', 'H', 'D', 'G', 'K'];
 //give each card alphabet back cover
 for (var i = 0; i < 16; i++)
