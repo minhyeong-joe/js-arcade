@@ -240,7 +240,7 @@ function arithmetic()
   {
     combination = flipped[0] - flipped[2];
   }
-  else if (flipped[1] === 'x')
+  else if (flipped[1] === '&times;')
   {
     combination = flipped[0] * flipped[2];
   }
