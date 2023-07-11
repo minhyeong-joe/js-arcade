@@ -136,7 +136,7 @@ h2
 }
 .card
 {
-  font-family: 'Archivo Black', sans-serif;
+  font-family: 'Passion One', sans-serif;
   color: white;
   text-shadow: 1px 1px 2px black;
   border: 1px solid black;
@@ -144,8 +144,7 @@ h2
   width: 120px;
   background-color: #8B4513;
   margin: 1px;
-  font-size: 40px;
-  font-weight: bold;
+  font-size: 60px;
   cursor: pointer;
   display: flex;
   justify-content: center;
