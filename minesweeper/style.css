@@ -132,7 +132,7 @@ h2
 .cell.explosion {
   background-position: 0 -48px;
 }
-.cell.incorrect-mine {
+.cell.incorrect-mark {
   background-position: 0 -64px;
 }
 .cell.mine {

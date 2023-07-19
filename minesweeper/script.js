@@ -1,11 +1,12 @@
 //****************Customization******************//
-var rowSize = 9; // row size
-var colSize = 9; // column size
-var numMine = 10; // number of mines
+let rowSize = 9; // row size
+let colSize = 9; // column size
+let numMine = 10; // number of mines
 //***********************************************//
 
-var soundon = true;
-var gameStarted = false;
+let soundon = true;
+let gameStarted = false;
+let interactable = false;
 CELL_SIZE = 16; // each cell's size in pixels
 BOARD_PADDING = 16; // padding between board container and game components
 
@@ -21,6 +22,8 @@ let grid = [
 	[1, 1, 1, 1, 1, 1, 0, 0, 0],
 ];
 
+// number of opened cell
+let numOpenedCells = 0;
 // timer interval
 let timerId;
 // remaining flags
@@ -28,6 +31,23 @@ let numFlag = numMine;
 // flag for auto open execution
 let autoOpenHandlerExecuted = false;
 // keep visited cells for expand zero cells
+
+// back button
+const backBtnElem = document.querySelector(".backIcon");
+backBtnElem.addEventListener("click", () => {
+	window.history.back();
+});
+// sound button
+const soundElem = document.querySelector(".soundIcon");
+soundElem.addEventListener("click", (e) => {
+	if (soundon) {
+		e.target.setAttribute("src", "assets/img/soundoff.png");
+		soundon = false;
+	} else {
+		e.target.setAttribute("src", "assets/img/soundon.png");
+		soundon = true;
+	}
+});
 
 // ############## GAME SET-UP ###############
 const initGame = () => {
@@ -48,12 +68,6 @@ const setGrid = (gridElement) => {
 		row = Math.floor(i / colSize);
 		col = i % colSize;
 		cellElement = document.createElement("div");
-		// if (grid[row][col] == "X") {
-		// 	cellElement.classList.add("cell", "mine");
-		// } else if (typeof grid[row][col] === "number") {
-		// 	className = "number-" + grid[row][col];
-		// 	cellElement.classList.add("cell", className);
-		// }
 		cellElement.classList.add("cell", "unopened");
 		gridElement.appendChild(cellElement);
 	}
@@ -109,16 +123,13 @@ const startGame = () => {
 		setTimer(time); // Display the updated timer value
 	}, 1000);
 	// make grid cells interactable
-	let cellElements = document.querySelectorAll(".cell");
-	for (let cellElement of cellElements) {
-		cellElement.classList.add("interactable");
-		// add event handler for opening the cell
-		cellElement.addEventListener("click", onClickHandler);
-		cellElement.addEventListener("contextmenu", toggleFlagHandler);
-	}
+	setCellsInteractable(true);
 };
 
 const endGame = () => {
+	// set face back to original
+	const smiley = document.querySelector("#smiley-face");
+	smiley.classList = [];
 	numFlag = numMine;
 	setMineCount(numMine);
 	setTimer(0);
@@ -126,30 +137,68 @@ const endGame = () => {
 	// stop timer
 	clearInterval(timerId);
 	// clear grid
+	numOpenedCells = 0;
 	let cellElements = document.querySelectorAll(".cell");
 	for (let cellElement of cellElements) {
 		cellElement.classList = "cell unopened";
 		cellElement.removeEventListener("click", onClickHandler);
 		cellElement.removeEventListener("contextmenu", toggleFlagHandler);
+		cellElement.removeEventListener("mousedown", onLeftRightDown);
+		cellElement.removeEventListener("mouseleave", onMouseLeave);
+		cellElement.removeEventListener("mouseup", onLeftRightUp);
 	}
 };
 
-const gameCleared = () => {
+const gameClear = () => {
 	// TODO
 	// sunglasses
+	const smiley = document.querySelector("#smiley-face");
+	smiley.classList.add("sunglasses");
 	// stop timer
+	clearInterval(timerId);
 	// play success sound
+	playClearSound();
 	// disable grid interaction
-	console.log("Game Cleared");
+	setCellsInteractable(false);
 };
 
 const gameOver = () => {
 	// TODO
 	// play explosition sound
+	playExplosionSound();
 	// end game timer
+	clearInterval(timerId);
+	// dead smiley face
+	const smiley = document.querySelector("#smiley-face");
+	smiley.classList.add("dead");
 	// show all mines - case if marked incorrectly
+	showMines();
 	// disable grid interactions
-	console.log("Game Over");
+	setCellsInteractable(false);
+};
+
+const isGameCleared = () => {
+	console.log(numOpenedCells);
+	console.log(rowSize * colSize - numMine);
+	return numOpenedCells == rowSize * colSize - numMine;
+};
+
+const setCellsInteractable = (isInteractable) => {
+	interactable = isInteractable;
+	const cellElements = document.querySelectorAll(".cell");
+	for (let cellElement of cellElements) {
+		if (isInteractable) {
+			cellElement.classList.add("interactable");
+			// add event handler for opening the cell
+			cellElement.addEventListener("click", onClickHandler);
+			cellElement.addEventListener("contextmenu", toggleFlagHandler);
+		} else {
+			cellElement.classList.remove("interactable");
+			// add event handler for opening the cell
+			cellElement.removeEventListener("click", onClickHandler);
+			cellElement.removeEventListener("contextmenu", toggleFlagHandler);
+		}
+	}
 };
 
 // #################### GAMEPLAY LOGICS ##########################
@@ -160,8 +209,8 @@ const onClickHandler = (e) => {
 const openCell = (elem) => {
 	if (
 		elem.classList.contains("unopened") &&
-		elem.classList.contains("interactable") &&
-		!elem.classList.contains("flagged")
+		!elem.classList.contains("flagged") &&
+		interactable
 	) {
 		const index = getTargetIndex(elem);
 		console.log(index);
@@ -182,14 +231,15 @@ const openCell = (elem) => {
 				openNeighboringCells(row, col);
 			}
 		}
+		numOpenedCells++;
+		if (isGameCleared()) {
+			gameClear();
+		}
 	}
 };
 
 const toggleFlagHandler = (e) => {
-	if (
-		e.target.classList.contains("unopened") &&
-		e.target.classList.contains("interactable")
-	) {
+	if (e.target.classList.contains("unopened") && interactable) {
 		toggleFlag(e);
 	}
 };
@@ -219,7 +269,7 @@ const openNeighboringCells = (row, col) => {
 };
 
 const onLeftRightDown = (e) => {
-	if (e.buttons === 3) {
+	if (e.buttons === 3 && interactable) {
 		highlightNeighbors(e);
 		autoOpenHandlerExecuted = false;
 	}
@@ -328,6 +378,26 @@ const getNeighboringCells = (row, col) => {
 	return neighbors;
 };
 
+const showMines = () => {
+	const parentElement = document.querySelector("#grid");
+	for (let i = 0; i < rowSize * colSize; i++) {
+		let [row, col] = getRowCol(i);
+		const cellElem = parentElement.children[i];
+		if (
+			grid[row][col] == "X" &&
+			cellElem.classList.contains("unopened") &&
+			!cellElem.classList.contains("flagged")
+		) {
+			cellElem.classList.add("mine");
+		} else if (
+			grid[row][col] != "X" &&
+			cellElem.classList.contains("flagged")
+		) {
+			cellElem.classList.add("incorrect-mark");
+		}
+	}
+};
+
 const getTargetIndex = (elem) => {
 	const parentElement = elem.parentNode;
 	const children = Array.from(parentElement.children);
@@ -351,6 +421,25 @@ const getNumberCellValue = (classList) => {
 		if (className.startsWith("number-")) {
 			return parseInt(className.substring(7));
 		}
+	}
+};
+
+const playExplosionSound = () => {
+	const audioElem = document.querySelector("#explosion-sound");
+	playSound(audioElem, 0.2, 2);
+};
+
+const playClearSound = () => {
+	const audioElem = document.querySelector("#start-sound");
+	playSound(audioElem, 0.25);
+};
+
+const playSound = (audioElem, volume, speed = 1) => {
+	if (soundon) {
+		audioElem.currentTime = 0;
+		audioElem.volume = volume;
+		audioElem.playbackRate = speed;
+		audioElem.play();
 	}
 };
 
