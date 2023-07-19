@@ -6,7 +6,7 @@ let numMine = 10; // number of mines
 
 let soundon = true;
 let gameStarted = false;
-let interactable = false;
+let interactable = true;
 CELL_SIZE = 16; // each cell's size in pixels
 BOARD_PADDING = 16; // padding between board container and game components
 
@@ -68,7 +68,10 @@ const setGrid = (gridElement) => {
 		row = Math.floor(i / colSize);
 		col = i % colSize;
 		cellElement = document.createElement("div");
-		cellElement.classList.add("cell", "unopened");
+		cellElement.classList.add("cell", "unopened", "interactable");
+		// add event handler for opening the cell
+		cellElement.addEventListener("click", onClickHandler);
+		cellElement.addEventListener("contextmenu", toggleFlagHandler);
 		gridElement.appendChild(cellElement);
 	}
 };
@@ -93,11 +96,7 @@ const setGameboard = (gameboardElement, gameInfoElement, gridElement) => {
 	// attach start game to smiley face
 	const smiley = document.querySelector("#smiley-face");
 	smiley.addEventListener("click", () => {
-		if (gameStarted) {
-			endGame();
-		} else {
-			startGame();
-		}
+		resetGame();
 	});
 };
 
@@ -117,16 +116,16 @@ const setMineCount = (count) => {
 const startGame = () => {
 	gameStarted = true;
 	// start timer
-	let time = 0;
+	let time = 1;
+	setTimer(time);
 	timerId = setInterval(() => {
 		time++;
 		setTimer(time); // Display the updated timer value
 	}, 1000);
 	// make grid cells interactable
-	setCellsInteractable(true);
 };
 
-const endGame = () => {
+const resetGame = () => {
 	// set face back to original
 	const smiley = document.querySelector("#smiley-face");
 	smiley.classList = [];
@@ -137,15 +136,16 @@ const endGame = () => {
 	// stop timer
 	clearInterval(timerId);
 	// clear grid
+	setCellsInteractable(true);
 	numOpenedCells = 0;
 	let cellElements = document.querySelectorAll(".cell");
 	for (let cellElement of cellElements) {
-		cellElement.classList = "cell unopened";
-		cellElement.removeEventListener("click", onClickHandler);
-		cellElement.removeEventListener("contextmenu", toggleFlagHandler);
-		cellElement.removeEventListener("mousedown", onLeftRightDown);
-		cellElement.removeEventListener("mouseleave", onMouseLeave);
-		cellElement.removeEventListener("mouseup", onLeftRightUp);
+		cellElement.className = "cell unopened interactable";
+		// cellElement.removeEventListener("click", onClickHandler);
+		// cellElement.removeEventListener("contextmenu", toggleFlagHandler);
+		// cellElement.removeEventListener("mousedown", onLeftRightDown);
+		// cellElement.removeEventListener("mouseleave", onMouseLeave);
+		// cellElement.removeEventListener("mouseup", onLeftRightUp);
 	}
 };
 
@@ -158,6 +158,19 @@ const gameClear = () => {
 	clearInterval(timerId);
 	// play success sound
 	playClearSound();
+	// flag all mines automatically
+	const parentElement = document.querySelector("#grid");
+	for (let i = 0; i < rowSize * colSize; i++) {
+		let [row, col] = getRowCol(i);
+		const cellElem = parentElement.children[i];
+		if (
+			grid[row][col] == "X" &&
+			cellElem.classList.contains("unopened") &&
+			!cellElem.classList.contains("flagged")
+		) {
+			cellElem.classList.add("flagged");
+		}
+	}
 	// disable grid interaction
 	setCellsInteractable(false);
 };
@@ -207,6 +220,9 @@ const onClickHandler = (e) => {
 };
 
 const openCell = (elem) => {
+	if (!gameStarted) {
+		startGame();
+	}
 	if (
 		elem.classList.contains("unopened") &&
 		!elem.classList.contains("flagged") &&
@@ -245,6 +261,9 @@ const toggleFlagHandler = (e) => {
 };
 
 const toggleFlag = (e) => {
+	if (!gameStarted) {
+		startGame();
+	}
 	if (e.target.classList.contains("flagged")) {
 		e.target.classList.remove("flagged");
 		numFlag++;
