@@ -102,21 +102,20 @@ h2
   height: 144px;
   box-sizing: border-box;
 }
+#grid.interactable .cell {
+  cursor: pointer;
+}
+#grid.interactable .cell:active {
+  filter: brightness(0.8);
+  box-shadow: -2 -2 8px rgba(0, 0, 0, 0.5);
+  transform: translate(0.5px, 0.5px);
+}
 .cell {
   background-image: url(assets/img/Minesweepertiles-windows3.1.png);
   width: 16px;
   height: 16px;
   box-sizing: border-box;
-  transition: filter 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-.cell.interactable {
-  cursor: pointer;
-}
-.cell.interactable:active {
-  filter: brightness(0.8);
-  box-shadow: -2 -2 8px rgba(0, 0, 0, 0.5);
-  transform: translate(0.5px, 0.5px);
-
+  transition: filter 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
 }
 .cell.unopened
 {

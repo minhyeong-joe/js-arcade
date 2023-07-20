@@ -4,9 +4,6 @@ let colSize = 9; // column size
 let numMine = 10; // number of mines
 //***********************************************//
 
-let soundon = true;
-let gameStarted = false;
-let interactable = true;
 CELL_SIZE = 16; // each cell's size in pixels
 BOARD_PADDING = 16; // padding between board container and game components
 
@@ -22,6 +19,9 @@ let grid = [
 	[1, 1, 1, 1, 1, 1, 0, 0, 0],
 ];
 
+// GAME LOGIC VARIABLES
+let gameStarted = false;
+let interactable = true;
 // number of opened cell
 let numOpenedCells = 0;
 // timer interval
@@ -39,6 +39,7 @@ backBtnElem.addEventListener("click", () => {
 });
 // sound button
 const soundElem = document.querySelector(".soundIcon");
+let soundon = true;
 soundElem.addEventListener("click", (e) => {
 	if (soundon) {
 		e.target.setAttribute("src", "assets/img/soundoff.png");
@@ -49,40 +50,29 @@ soundElem.addEventListener("click", (e) => {
 	}
 });
 
+// load common DOM elements
+const gameboardElement = document.querySelector("#gameboard");
+const gameInfoElement = document.querySelector("#game-info");
+const gridElement = document.querySelector("#grid");
+const smiley = document.querySelector("#smiley-face");
+const timerElement = document.querySelector("#timer");
+const mineCountElement = document.querySelector("#mine-count");
+
 // ############## GAME SET-UP ###############
 const initGame = () => {
-	// load common DOM elements
-	const gameboardElement = document.querySelector("#gameboard");
-	const gameInfoElement = document.querySelector("#game-info");
-	const gridElement = document.querySelector("#grid");
 	// set game board size and other styles
-	setGameboard(gameboardElement, gameInfoElement, gridElement);
-	setTimer(0);
-	setMineCount(numMine);
+	setGameboard();
 	// create cells
-	setGrid(gridElement);
+	setGrid();
 };
 
-const setGrid = (gridElement) => {
-	for (let i = 0; i < rowSize * colSize; i++) {
-		row = Math.floor(i / colSize);
-		col = i % colSize;
-		cellElement = document.createElement("div");
-		cellElement.classList.add("cell", "unopened", "interactable");
-		// add event handler for opening the cell
-		cellElement.addEventListener("click", onClickHandler);
-		cellElement.addEventListener("contextmenu", toggleFlagHandler);
-		gridElement.appendChild(cellElement);
-	}
-};
-
-const setGameboard = (gameboardElement, gameInfoElement, gridElement) => {
+const setGameboard = () => {
+	// set gameboard size
 	let width = colSize * CELL_SIZE;
 	let height = rowSize * CELL_SIZE;
 	gameInfoElement.style.width = width + "px";
 	gridElement.style.width = width + "px";
 	gridElement.style.height = height + "px";
-	// set gameboard size
 	totalHeight =
 		gameInfoElement.offsetHeight +
 		parseInt(getComputedStyle(gameInfoElement).marginTop) +
@@ -90,24 +80,44 @@ const setGameboard = (gameboardElement, gameInfoElement, gridElement) => {
 		height;
 	gameboardElement.style.width = width + BOARD_PADDING + "px";
 	gameboardElement.style.height = parseInt(totalHeight) + BOARD_PADDING + "px";
+	// set mine count and timer
+	setTimer(0);
+	setMineCount(numMine);
+	// prevent default behavior of right click on entire board
 	gameboardElement.addEventListener("contextmenu", (e) => {
 		e.preventDefault();
 	});
-	// attach start game to smiley face
-	const smiley = document.querySelector("#smiley-face");
+	// attach reset game event handler to smiley face
 	smiley.addEventListener("click", () => {
 		resetGame();
 	});
 };
 
+const setGrid = () => {
+	gridElement.classList.add("interactable");
+	for (let i = 0; i < rowSize * colSize; i++) {
+		row = Math.floor(i / colSize);
+		col = i % colSize;
+		cellElement = document.createElement("div");
+		cellElement.classList.add("cell", "unopened");
+		// add event handler for opening the cell
+		cellElement.addEventListener("click", (e) => openCell(e.target));
+		// add event handler for flagging
+		cellElement.addEventListener("contextmenu", toggleFlag);
+		// add event handlers for left+right click
+		cellElement.addEventListener("mousedown", onLeftRightDown);
+		cellElement.addEventListener("mouseleave", onMouseLeave);
+		cellElement.addEventListener("mouseup", onLeftRightUp);
+		gridElement.appendChild(cellElement);
+	}
+};
+
 const setTimer = (time) => {
-	const timerElement = document.querySelector("#timer");
 	let displayTime = time.toString().padStart(3, "0");
 	timerElement.textContent = displayTime;
 };
 
 const setMineCount = (count) => {
-	const mineCountElement = document.querySelector("#mine-count");
 	let displayCount = count.toString().padStart(3, "0");
 	mineCountElement.textContent = displayCount;
 };
@@ -122,47 +132,42 @@ const startGame = () => {
 		time++;
 		setTimer(time); // Display the updated timer value
 	}, 1000);
-	// make grid cells interactable
 };
 
 const resetGame = () => {
+	gameStarted = false;
 	// set face back to original
-	const smiley = document.querySelector("#smiley-face");
 	smiley.classList = [];
+	// reset mine count and timer
 	numFlag = numMine;
 	setMineCount(numMine);
 	setTimer(0);
-	gameStarted = false;
 	// stop timer
 	clearInterval(timerId);
 	// clear grid
 	setCellsInteractable(true);
+	resetCells();
+};
+
+const resetCells = () => {
 	numOpenedCells = 0;
-	let cellElements = document.querySelectorAll(".cell");
-	for (let cellElement of cellElements) {
-		cellElement.className = "cell unopened interactable";
-		// cellElement.removeEventListener("click", onClickHandler);
-		// cellElement.removeEventListener("contextmenu", toggleFlagHandler);
-		// cellElement.removeEventListener("mousedown", onLeftRightDown);
-		// cellElement.removeEventListener("mouseleave", onMouseLeave);
-		// cellElement.removeEventListener("mouseup", onLeftRightUp);
+	const cellElements = document.querySelectorAll(".cell");
+	for (let cell of cellElements) {
+		cell.className = "cell unopened";
 	}
 };
 
 const gameClear = () => {
-	// TODO
 	// sunglasses
-	const smiley = document.querySelector("#smiley-face");
 	smiley.classList.add("sunglasses");
 	// stop timer
 	clearInterval(timerId);
 	// play success sound
 	playClearSound();
 	// flag all mines automatically
-	const parentElement = document.querySelector("#grid");
 	for (let i = 0; i < rowSize * colSize; i++) {
 		let [row, col] = getRowCol(i);
-		const cellElem = parentElement.children[i];
+		const cellElem = gridElement.children[i];
 		if (
 			grid[row][col] == "X" &&
 			cellElem.classList.contains("unopened") &&
@@ -176,13 +181,11 @@ const gameClear = () => {
 };
 
 const gameOver = () => {
-	// TODO
 	// play explosition sound
 	playExplosionSound();
 	// end game timer
 	clearInterval(timerId);
 	// dead smiley face
-	const smiley = document.querySelector("#smiley-face");
 	smiley.classList.add("dead");
 	// show all mines - case if marked incorrectly
 	showMines();
@@ -191,34 +194,40 @@ const gameOver = () => {
 };
 
 const isGameCleared = () => {
-	console.log(numOpenedCells);
-	console.log(rowSize * colSize - numMine);
 	return numOpenedCells == rowSize * colSize - numMine;
 };
 
 const setCellsInteractable = (isInteractable) => {
 	interactable = isInteractable;
-	const cellElements = document.querySelectorAll(".cell");
-	for (let cellElement of cellElements) {
-		if (isInteractable) {
-			cellElement.classList.add("interactable");
-			// add event handler for opening the cell
-			cellElement.addEventListener("click", onClickHandler);
-			cellElement.addEventListener("contextmenu", toggleFlagHandler);
-		} else {
-			cellElement.classList.remove("interactable");
-			// add event handler for opening the cell
-			cellElement.removeEventListener("click", onClickHandler);
-			cellElement.removeEventListener("contextmenu", toggleFlagHandler);
+	if (isInteractable) {
+		gridElement.classList.add("interactable");
+	} else {
+		gridElement.classList.remove("interactable");
+	}
+};
+
+// show all mines & incorrect marking at the end of game
+const showMines = () => {
+	for (let i = 0; i < rowSize * colSize; i++) {
+		let [row, col] = getRowCol(i);
+		const cellElem = gridElement.children[i];
+		if (
+			grid[row][col] == "X" &&
+			cellElem.classList.contains("unopened") &&
+			!cellElem.classList.contains("flagged")
+		) {
+			cellElem.classList.add("mine");
+		} else if (
+			grid[row][col] != "X" &&
+			cellElem.classList.contains("flagged")
+		) {
+			cellElem.classList.add("incorrect-mark");
 		}
 	}
 };
 
-// #################### GAMEPLAY LOGICS ##########################
-const onClickHandler = (e) => {
-	openCell(e.target);
-};
-
+// #################### EVENT HANDLERS ##########################
+// LEFT CLICK
 const openCell = (elem) => {
 	if (!gameStarted) {
 		startGame();
@@ -229,20 +238,15 @@ const openCell = (elem) => {
 		interactable
 	) {
 		const index = getTargetIndex(elem);
-		console.log(index);
 		const [row, col] = getRowCol(index);
-		console.log(row, col);
 		elem.classList.remove("unopened", "interactable");
 		if (grid[row][col] == "X") {
 			elem.classList.add("cell", "explosion");
 			gameOver();
+			return;
 		} else if (typeof grid[row][col] === "number") {
 			className = "number-" + grid[row][col];
 			elem.classList.add("cell", className);
-			// addLeftRightClickEventListener(e);
-			elem.addEventListener("mousedown", onLeftRightDown);
-			elem.addEventListener("mouseleave", onMouseLeave);
-			elem.addEventListener("mouseup", onLeftRightUp);
 			if (grid[row][col] == 0) {
 				openNeighboringCells(row, col);
 			}
@@ -254,48 +258,37 @@ const openCell = (elem) => {
 	}
 };
 
-const toggleFlagHandler = (e) => {
-	if (e.target.classList.contains("unopened") && interactable) {
-		toggleFlag(e);
-	}
-};
-
+// RIGHT CLICK
 const toggleFlag = (e) => {
-	if (!gameStarted) {
-		startGame();
-	}
-	if (e.target.classList.contains("flagged")) {
-		e.target.classList.remove("flagged");
-		numFlag++;
-	} else {
-		if (numFlag > 0) {
-			e.target.classList.add("flagged");
-			numFlag--;
+	const elem = e.target;
+	if (elem.classList.contains("unopened") && interactable) {
+		if (!gameStarted) {
+			startGame();
 		}
+		if (elem.classList.contains("flagged")) {
+			elem.classList.remove("flagged");
+			numFlag++;
+		} else {
+			if (numFlag > 0) {
+				elem.classList.add("flagged");
+				numFlag--;
+			}
+		}
+		// update flag/mine count
+		setMineCount(numFlag);
 	}
-	// update flag/mine count
-	setMineCount(numFlag);
 };
 
-const openNeighboringCells = (row, col) => {
-	const parentElement = document.querySelector("#grid");
-	const neighborIndices = getNeighboringCells(row, col);
-	for (let neighborIndex of neighborIndices) {
-		const cellElem = parentElement.children[neighborIndex];
-		console.log(cellElem);
-		openCell(cellElem);
-	}
-};
-
+// LEFT + RIGHT CLICK
 const onLeftRightDown = (e) => {
-	if (e.buttons === 3 && interactable) {
-		highlightNeighbors(e);
+	if (e.buttons === 3 && interactable && getNumberCellValue(e.target)) {
+		highlightNeighbors(e, true);
 		autoOpenHandlerExecuted = false;
 	}
 };
 
 const onMouseLeave = (e) => {
-	unhighlightNeighbors(e);
+	highlightNeighbors(e, false);
 };
 
 const onLeftRightUp = (e) => {
@@ -305,66 +298,62 @@ const onLeftRightUp = (e) => {
 	}
 };
 
-const highlightNeighbors = (e) => {
+// ###################### GAME PLAY LOGICS ##############################
+// highlight/un-highlight neighboring cells on left+right click
+// isHighlighted: true - highlight; false - un-highlight
+const highlightNeighbors = (e, isHighlighted) => {
 	// find neighbors
 	const index = getTargetIndex(e.target);
 	const [row, col] = getRowCol(index);
-	const neighborsIndices = getNeighboringCells(row, col);
-	console.log(neighborsIndices);
+	const neighborCells = getNeighboringCells(row, col);
 	// highlight neighbors
-	const parentElement = e.target.parentNode; // Get the parent element
-	Array.from(parentElement.children).forEach((child, index) => {
-		if (
-			neighborsIndices.includes(index) &&
-			!child.classList.contains("flagged")
-		) {
-			child.classList.add("highlight");
+	neighborCells.forEach((cell) => {
+		if (!cell.classList.contains("flagged")) {
+			if (isHighlighted) {
+				cell.classList.add("highlight");
+			} else {
+				cell.classList.remove("highlight");
+			}
 		}
 	});
 };
 
-const unhighlightNeighbors = (e) => {
-	// find neighbors
-	const index = getTargetIndex(e.target);
-	const [row, col] = getRowCol(index);
-	const neighborsIndices = getNeighboringCells(row, col);
-	// un-highlight neighbors
-	const parentElement = e.target.parentNode; // Get the parent element
-	Array.from(parentElement.children).forEach((child, index) => {
-		if (neighborsIndices.includes(index)) {
-			child.classList.remove("highlight");
-		}
+// expand & open neighbor cells if number-0 cell is opened
+const openNeighboringCells = (row, col) => {
+	const neighborCells = getNeighboringCells(row, col);
+	neighborCells.forEach((cell) => {
+		openCell(cell);
 	});
 };
 
+// helper feature that allows user to open all neighbor cells if neighboring cells have been
+// all marked with flags equal to the number indicated by the selected cell
+// Handler for releasing left+right mouse clicks
 const autoOpenNeighbors = (e) => {
-	unhighlightNeighbors(e);
+	highlightNeighbors(e, false);
 	// if number of flags in neighboring cells == value of this cell, then open all neighboring cells
-	let cellValue = getNumberCellValue(e.target.classList);
-	console.log(cellValue);
+	let cellValue = getNumberCellValue(e.target);
 	const index = getTargetIndex(e.target);
 	const [row, col] = getRowCol(index);
-	let neighborsIndices = getNeighboringCells(row, col);
-	let countFlag = 0;
-	const parentElement = e.target.parentNode; // Get the parent element
-	Array.from(parentElement.children).forEach((child, index) => {
-		if (
-			neighborsIndices.includes(index) &&
-			child.classList.contains("flagged")
-		) {
+	let neighborCells = getNeighboringCells(row, col);
+	let countFlag = 0; // number of surrounding flags used
+	neighborCells.forEach((cell) => {
+		if (cell.classList.contains("flagged")) {
 			countFlag++;
 		}
 	});
-	console.log(countFlag);
 	if (cellValue === countFlag) {
-		Array.from(parentElement.children).forEach((child, index) => {
-			if (neighborsIndices.includes(index)) {
-				openCell(child);
-			}
+		neighborCells.forEach((cell) => {
+			openCell(cell);
 		});
 	}
 };
 
+// helper function to get neighbor cells
+// row:int - row number of cell within the grid
+// col:int - col number of cell within the grid
+// returns
+// neighbors:[DOM Element] - list of neighbor cell DOM elements
 const getNeighboringCells = (row, col) => {
 	let neighbors = [];
 	// Define the offsets for neighboring cells
@@ -390,52 +379,53 @@ const getNeighboringCells = (row, col) => {
 			neighborCol >= 0 &&
 			neighborCol < colSize
 		) {
-			neighbors.push(getIndex(neighborRow, neighborCol));
+			const index = getIndex(neighborRow, neighborCol);
+			neighbors.push(gridElement.children[index]);
+			// neighbors.push(getIndex(neighborRow, neighborCol));
 		}
 	}
 
 	return neighbors;
 };
 
-const showMines = () => {
-	const parentElement = document.querySelector("#grid");
-	for (let i = 0; i < rowSize * colSize; i++) {
-		let [row, col] = getRowCol(i);
-		const cellElem = parentElement.children[i];
-		if (
-			grid[row][col] == "X" &&
-			cellElem.classList.contains("unopened") &&
-			!cellElem.classList.contains("flagged")
-		) {
-			cellElem.classList.add("mine");
-		} else if (
-			grid[row][col] != "X" &&
-			cellElem.classList.contains("flagged")
-		) {
-			cellElem.classList.add("incorrect-mark");
-		}
-	}
-};
-
+// helper function to get index of selected cell element
+// elem:DOM Element - target cell element
+// returns
+// index:int - index under parentNode (#grid)
 const getTargetIndex = (elem) => {
-	const parentElement = elem.parentNode;
-	const children = Array.from(parentElement.children);
+	const children = Array.from(gridElement.children);
 	const index = children.indexOf(elem);
 	return index;
 };
 
+// helper function to get index from row and col
+// row:int - row number of cell within the grid
+// col:int - col number of cell within the grid
+// returns
+// index:int - index under parentNode (#grid)
 const getIndex = (row, col) => {
 	return row * colSize + col;
 };
 
+// helper function to get row and col from index
+// index:int - index under parentNode (#grid)
+// returns
+// [row, col]:List[row,col]
+// row:int - row number of cell within the grid
+// col:int - col number of cell within the grid
 const getRowCol = (index) => {
 	row = Math.floor(index / colSize);
 	col = index % colSize;
 	return [row, col];
 };
 
-const getNumberCellValue = (classList) => {
-	for (const className of classList) {
+// helper function to extract indicated number from a number cell element
+// cellElem:DOM Element - cell element
+// returns
+// int - number indicated by the cell (0~8)
+// undefined if cell is non-number cell (ie. mine, flagged, etc)
+const getNumberCellValue = (cellElem) => {
+	for (const className of cellElem.classList) {
 		// if numerical, then return value
 		if (className.startsWith("number-")) {
 			return parseInt(className.substring(7));
