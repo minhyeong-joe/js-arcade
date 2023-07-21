@@ -5,19 +5,11 @@ let numMine = 10; // number of mines
 //***********************************************//
 
 CELL_SIZE = 16; // each cell's size in pixels
-BOARD_PADDING = 16; // padding between board container and game components
+BOARD_PADDING = 22; // padding between board container and game components
+// set to true for development
+let debug = false;
 
-let grid = [
-	[0, 1, 1, 1, 0, 0, 0, 0, 0],
-	[1, 2, "X", 1, 0, 0, 0, 0, 0],
-	[2, "X", 2, 1, 0, 1, 1, 1, 0],
-	["X", 2, 1, 0, 0, 1, "X", 1, 0],
-	[1, 1, 0, 0, 0, 1, 1, 2, 1],
-	[0, 1, 1, 1, 1, 1, 2, 2, "X"],
-	[1, 2, "X", 2, 2, "X", 2, "X", 2],
-	[1, "X", 2, 2, "X", 2, 2, 1, 1],
-	[1, 1, 1, 1, 1, 1, 0, 0, 0],
-];
+let grid;
 
 // GAME LOGIC VARIABLES
 let gameStarted = false;
@@ -58,6 +50,10 @@ const smiley = document.querySelector("#smiley-face");
 const timerElement = document.querySelector("#timer");
 const mineCountElement = document.querySelector("#mine-count");
 
+const easyBtn = document.querySelector("#easy-radio-btn");
+const intermediateBtn = document.querySelector("#intermediate-radio-btn");
+const hardBtn = document.querySelector("#hard-radio-btn");
+
 // ############## GAME SET-UP ###############
 const initGame = () => {
 	// set game board size and other styles
@@ -82,6 +78,11 @@ const setGameboard = () => {
 		height;
 	gameboardElement.style.width = width + BOARD_PADDING + "px";
 	gameboardElement.style.height = parseInt(totalHeight) + BOARD_PADDING + "px";
+	debuggingLog(
+		"boardSize:",
+		gameboardElement.style.width,
+		gameboardElement.style.height
+	);
 	// set mine count and timer
 	setTimer(0);
 	setMineCount(numMine);
@@ -96,6 +97,8 @@ const setGameboard = () => {
 };
 
 const setGrid = () => {
+	// remove all cells
+	gridElement.innerHTML = "";
 	gridElement.classList.add("interactable");
 	for (let i = 0; i < rowSize * colSize; i++) {
 		row = Math.floor(i / colSize);
@@ -128,9 +131,9 @@ const setMineCount = (count) => {
 // also set number cells indicating number of mines in neighboring cells
 const generateGrid = () => {
 	console.time("grid generation");
-	console.log("generating new grid...");
+	debuggingLog("generating new grid...");
 	grid = create2DArray(rowSize, colSize, 0);
-	console.log("empty grid:", grid);
+	debuggingLog("empty grid:", grid);
 	// get random indices for mines
 	let mineIndices = new Set();
 	let remainingMines = numMine;
@@ -139,12 +142,12 @@ const generateGrid = () => {
 		if (!mineIndices.has(mineIndex)) {
 			mineIndices.add(mineIndex);
 			const [row, col] = getRowCol(mineIndex);
-			console.log("add mine to:", [row, col]);
+			debuggingLog("add mine to:", [row, col]);
 			grid[row][col] = "X";
 			remainingMines--;
 			// add 1 to neighboring number cells
 			const neighborCells = getNeighboringCellsRowCol(row, col);
-			console.log("neighbors:", neighborCells);
+			debuggingLog("neighbors:", neighborCells);
 			for (const [neighborRow, neighborCol] of neighborCells) {
 				if (grid[neighborRow][neighborCol] != "X") {
 					grid[neighborRow][neighborCol]++;
@@ -152,8 +155,36 @@ const generateGrid = () => {
 			}
 		}
 	}
-	console.log("final grid:", grid);
+	debuggingLog("final grid:", grid);
 	console.timeEnd("grid generation");
+};
+
+// handles difficulty change when radio box is changed
+const handleDifficultyChange = (e) => {
+	const selectedValue = e.target.value;
+	debuggingLog("selected difficulty:", selectedValue);
+	switch (selectedValue) {
+		case "easy":
+			rowSize = 9;
+			colSize = 9;
+			numMine = 10;
+			break;
+		case "intermediate":
+			rowSize = 16;
+			colSize = 16;
+			numMine = 40;
+			break;
+		case "hard":
+			rowSize = 16;
+			colSize = 30;
+			numMine = 99;
+			break;
+		default:
+			break;
+	}
+	resetGame();
+	setGameboard();
+	setGrid();
 };
 
 // #################### GAME STATUS ###########################
@@ -531,5 +562,15 @@ const playSound = (audioElem, volume, speed = 1) => {
 		audioElem.play();
 	}
 };
+
+const debuggingLog = (...args) => {
+	if (debug) {
+		console.log(...args);
+	}
+};
+
+easyBtn.addEventListener("change", handleDifficultyChange);
+intermediateBtn.addEventListener("change", handleDifficultyChange);
+hardBtn.addEventListener("change", handleDifficultyChange);
 
 initGame();
