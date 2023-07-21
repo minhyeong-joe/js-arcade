@@ -62,6 +62,8 @@ const mineCountElement = document.querySelector("#mine-count");
 const initGame = () => {
 	// set game board size and other styles
 	setGameboard();
+	// generate grid
+	generateGrid();
 	// create cells
 	setGrid();
 };
@@ -122,6 +124,38 @@ const setMineCount = (count) => {
 	mineCountElement.textContent = displayCount;
 };
 
+// generate a random grid with numMine in a rowSize x colSize dimension
+// also set number cells indicating number of mines in neighboring cells
+const generateGrid = () => {
+	console.time("grid generation");
+	console.log("generating new grid...");
+	grid = create2DArray(rowSize, colSize, 0);
+	console.log("empty grid:", grid);
+	// get random indices for mines
+	let mineIndices = new Set();
+	let remainingMines = numMine;
+	while (remainingMines > 0) {
+		const mineIndex = Math.floor(Math.random() * (rowSize * colSize));
+		if (!mineIndices.has(mineIndex)) {
+			mineIndices.add(mineIndex);
+			const [row, col] = getRowCol(mineIndex);
+			console.log("add mine to:", [row, col]);
+			grid[row][col] = "X";
+			remainingMines--;
+			// add 1 to neighboring number cells
+			const neighborCells = getNeighboringCellsRowCol(row, col);
+			console.log("neighbors:", neighborCells);
+			for (const [neighborRow, neighborCol] of neighborCells) {
+				if (grid[neighborRow][neighborCol] != "X") {
+					grid[neighborRow][neighborCol]++;
+				}
+			}
+		}
+	}
+	console.log("final grid:", grid);
+	console.timeEnd("grid generation");
+};
+
 // #################### GAME STATUS ###########################
 const startGame = () => {
 	gameStarted = true;
@@ -144,6 +178,8 @@ const resetGame = () => {
 	setTimer(0);
 	// stop timer
 	clearInterval(timerId);
+	// create new random grid
+	generateGrid();
 	// clear grid
 	setCellsInteractable(true);
 	resetCells();
@@ -165,6 +201,7 @@ const gameClear = () => {
 	// play success sound
 	playClearSound();
 	// flag all mines automatically
+	setMineCount(0);
 	for (let i = 0; i < rowSize * colSize; i++) {
 		let [row, col] = getRowCol(i);
 		const cellElem = gridElement.children[i];
@@ -388,6 +425,40 @@ const getNeighboringCells = (row, col) => {
 	return neighbors;
 };
 
+// helper function to get neighbor cells (not element, but a grid[row][col])
+const getNeighboringCellsRowCol = (row, col) => {
+	let neighbors = [];
+	// Define the offsets for neighboring cells
+	const offsets = [
+		[-1, -1],
+		[-1, 0],
+		[-1, 1],
+		[0, -1],
+		[0, 1],
+		[1, -1],
+		[1, 0],
+		[1, 1],
+	];
+	// Iterate through each offset and add valid neighbors to the result
+	for (const [offsetRow, offsetCol] of offsets) {
+		const neighborRow = row + offsetRow;
+		const neighborCol = col + offsetCol;
+
+		// Check if the neighbor is within the bounds of the grid
+		if (
+			neighborRow >= 0 &&
+			neighborRow < rowSize &&
+			neighborCol >= 0 &&
+			neighborCol < colSize
+		) {
+			neighbors.push([neighborRow, neighborCol]);
+			// neighbors.push(getIndex(neighborRow, neighborCol));
+		}
+	}
+
+	return neighbors;
+};
+
 // helper function to get index of selected cell element
 // elem:DOM Element - target cell element
 // returns
@@ -431,6 +502,15 @@ const getNumberCellValue = (cellElem) => {
 			return parseInt(className.substring(7));
 		}
 	}
+};
+
+// helper function to initialize 2d array (grid) and fill with 0
+const create2DArray = (rowSize, colSize, defaultValue = 0) => {
+	const arr = new Array(rowSize);
+	for (let i = 0; i < rowSize; i++) {
+		arr[i] = new Array(colSize).fill(defaultValue);
+	}
+	return arr;
 };
 
 const playExplosionSound = () => {
