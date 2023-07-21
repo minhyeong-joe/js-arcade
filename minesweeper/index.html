@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Arcade</title>
+    <link rel="icon" href="../assets/img/tabIcon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Passion+One|Righteous|Anton|Germania+One|Josefin+Sans|Geostar+Fill" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="loading.js"></script>
+  </head>
+  <body>
+    <div class="loading"></div>
+    <div class="header">
+      <p class="title">JS Arcade</p>
+    </div>
+    <div class="main">
+      <div class="gameHeader">
+        <img src="assets/img/back.png" alt="" class="backIcon">
+        <h2>Minesweeper</h2>
+        <img src="assets/img/soundon.png" alt="" class="soundIcon">
+      </div>
+
+      <div id="gameboard">
+        <div id="game-info">
+          <div id="mine-count">000</div>
+          <div id="smiley-face"></div>
+          <div id="timer">000</div>
+        </div>
+        <div id="grid">
+        </div>
+      </div>
+      <div id="userinterface">
+        <div id="configuration">
+          <div class="row">
+            <div class="input-group">
+              <input type="radio" id="easy-radio-btn" name="difficulty" value="easy" checked/>
+              <label for="easy-radio-btn">Easy</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="intermediate-radio-btn" name="difficulty" value="intermediate" />
+              <label for="intermediate-radio-btn">Intermediate</label>
+            </div>
+            <div class="input-group">
+              <input type="radio" id="hard-radio-btn" name="difficulty" value="hard" />
+              <label for="hard-radio-btn">Hard</label>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="input-group">
+              <input type="radio" id="custom-radio-btn" name="difficulty" value="Custom" />
+              <label for="custom-radio-btn">Custom</label>
+            </div>
+            <div id="custom-configuration">
+              <div class="input-group">
+
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div id="instruction">
+          <ol>
+            <li>Uncover cells on a grid, some of which contain hidden mines.</li>
+            <li>If a revealed cell contains a mine, the game ends, and you lose.</li>
+            <li>Safe cells display numbers indicating the count of adjacent mines.</li>
+            <li>Use the numbers to deduce the mine locations and mark them by right-clicking.</li>
+            <li>Win the game by uncovering all safe cells correctly.</li>
+          </ol>
+        </div>
+    </div>
+
+    <audio src="assets/bgm/explosion.ogg" id="explosion-sound" preload="auto"></audio>
+    <audio src="assets/bgm/start.ogg" id="start-sound" preload="auto"></audio>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,223 @@
+*
+{
+  text-align: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+.loading {
+  position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("../assets/img/loading.gif") center no-repeat #222;
+}
+.gameHeader{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto 10px;
+  background-color: #6e693c;
+  align-items: center;
+  padding: 0 10px;
+  box-shadow: 1px 1px 2px #777;
+}
+.gameHeader>img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+h2
+{
+  font-family: 'Germania One', cursive;
+  font-size: 35px;
+  margin-top: 0;
+  color: white;
+  text-shadow: 2px 2px 3px gray;
+}
+#gameboard
+{
+  margin: auto;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #7B7B7B;
+  background-color: #BDBDBD;
+  position: relative;
+  width: 160px;
+  height: 186px;
+  padding: 8px;
+}
+#game-info {
+  display: flex;
+  justify-content: space-around;
+  width: 144px;
+  /* margin-top: 3px; */
+  margin-bottom: 3px;
+}
+#mine-count, #timer {
+  height: 25px;
+  width: 54px;
+  font-family: "Geostar Fill", monospace;
+  font-size: 14px;
+  color: red;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2px;
+}
+#smiley-face {
+  cursor: pointer;
+  height: 25px;
+  width: 25px;
+  /* background-color: gray; */
+  background-image: url(assets/img/smile.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  border: 2px solid #808080;
+  background-color: #BDBDBD;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+#smiley-face:active {
+  transform: translate(1px, 1px);
+  background-color: #7B7B7B;
+}
+#smiley-face.sunglasses {
+  background-image: url(assets/img/sunglasses.png);
+}
+#smiley-face.dead {
+  background-image: url(assets/img/dead_face.png);
+}
+#grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 144px;
+  height: 144px;
+  box-sizing: border-box;
+}
+#grid.interactable .cell {
+  cursor: pointer;
+}
+#grid.interactable .cell:active {
+  filter: brightness(0.8);
+  box-shadow: -2 -2 8px rgba(0, 0, 0, 0.5);
+  transform: translate(0.5px, 0.5px);
+}
+.cell {
+  background-image: url(assets/img/Minesweepertiles-windows3.1.png);
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  transition: filter 0.1s ease, box-shadow 0.1s ease, transform 0.1s ease;
+}
+.cell.unopened
+{
+  background-position: 0 0;
+}
+.cell.unopened.highlight {
+  background-position: 0 -240px;
+}
+.cell.flagged
+{
+  background-position: 0 -16px;
+}
+.cell.explosion {
+  background-position: 0 -48px;
+}
+.cell.incorrect-mark {
+  background-position: 0 -64px;
+}
+.cell.mine {
+  background-position: 0 -80px;
+}
+.cell.number-8 {
+  background-position: 0 -112px;
+}
+.cell.number-7 {
+  background-position: 0 -128px;
+}
+.cell.number-6 {
+  background-position: 0 -144px;
+}
+.cell.number-5 {
+  background-position: 0 -160px;
+}
+.cell.number-4 {
+  background-position: 0 -176px;
+}
+.cell.number-3 {
+  background-position: 0 -192px;
+}
+.cell.number-2 {
+  background-position: 0 -208px;
+}
+.cell.number-1 {
+  background-position: 0 -224px;
+}
+.cell.number-0 {
+  background-position: 0 -240px;
+}
+#configuration {
+  background-color: rgba(150,150,150,0.5);
+  padding: 10px;
+  margin: 10px;
+}
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+.input-group label {
+  margin-left: 5px;
+}
+#instruction
+{
+  margin: 10px auto;
+  width: 90%;
+  border: 8px double white;
+  font-weight: bold;
+}
+ul, ol
+{
+  margin-right: 15px;
+  color: white;
+}
+li
+{
+  text-align: justify;
+}
+
+@media screen and (max-width: 800px)
+{
+  #main
+  {
+    display: block;
+    width: 100%;
+  }
+  ul, ol
+  {
+    width: 100%;
+  }
+  #gameboard
+  {
+    margin: 10px auto;
+  }
+}
+@media screen and (max-width: 655px) {
+  #gameboard {
+    height: 300px;
+    width: 300px;
+  }
+}
+@media screen and (max-width: 367px) {
+  #gameboard {
+    height: 250px;
+    width: 250px;
+  }
+}
